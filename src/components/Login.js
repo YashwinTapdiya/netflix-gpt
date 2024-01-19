@@ -7,11 +7,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignInFrom, setIsSignInFrom] = useState(false);
 
   const [loginMessage, setLoginMessage] = useState(null);
+
+  const navigate = useNavigate();
 
   const toggleSignInForm = () => {
     setIsSignInFrom(!isSignInFrom);
@@ -27,7 +30,7 @@ const Login = () => {
     );
     setLoginMessage(message);
     if (message) return;
-    // Sign / Sign Up Logicc
+    // Sign / Sign Up Logic
 
     if (!isSignInFrom) {
       //Sign Up Logic
@@ -38,6 +41,7 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -53,6 +57,7 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          navigate("/");
         })
         .catch((error) => {
           const errorCode = error.code;

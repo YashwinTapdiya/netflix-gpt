@@ -40,12 +40,11 @@ const Header = () => {
 
   return (
     <div className="w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-44" src={NETFLIX_LOGO} alt="logo" />
+      <img className="w-44" src="./ngpt-red-300x71-01.png" alt="logo" />
       {user && (
         <div className="flex p-2">
-          <img className="w-12 h-12" alt="usericon" src={AVTAR_URL}/>
           <button
-            className="font-bold text-white"
+            className="font-bold text-xl text-red-500"
             onClick={handleSignOut}
           >
             Sign-Out

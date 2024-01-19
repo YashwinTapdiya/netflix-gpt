@@ -5,17 +5,18 @@ import VideoBackground from "./VideoBackground";
 
 const MainContainer = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
-  //this is known as early return
+  console.log(movies);
   if(!movies) return;
-
   const mainMovie = movies[0];
+
+  const {original_title,overview} = mainMovie;
   return (
     <div>
-        <VideoTitle/>
-        <VideoBackground/>
+      MainContainer
+      <VideoTitle title={original_title} overview={overview} />
+      <VideoBackground />
     </div>
-  )
+  );
 };
 
 export default MainContainer;
- 

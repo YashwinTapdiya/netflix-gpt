@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NETFLIX_LOGO } from "../utils/constants";
+import { AVTAR_URL, NETFLIX_LOGO } from "../utils/constants";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,9 +42,10 @@ const Header = () => {
     <div className="w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
       <img className="w-44" src={NETFLIX_LOGO} alt="logo" />
       {user && (
-        <div className="flex p-4">
+        <div className="flex p-2">
+          <img className="w-12 h-12" alt="usericon" src={AVTAR_URL}/>
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+            className="font-bold text-white"
             onClick={handleSignOut}
           >
             Sign-Out

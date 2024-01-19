@@ -1,44 +1,70 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import { BACK_IMG } from "../utils/constants";
+import checkValidateData from "../utils/validate";
 
 const Login = () => {
   const [isSignInFrom, setIsSignInFrom] = useState(false);
 
+  const [loginMessage, setLoginMessage] = useState(null);
+
   const toggleSignInForm = () => {
     setIsSignInFrom(!isSignInFrom);
+  };
+
+  const email = useRef(null);
+  const password = useRef(null);
+  //const name = useRef(null);
+
+  const handleButtonClick = () => {
+    const message = checkValidateData(
+      email.current.value,
+      password.current.value,
+      //name.current.value
+    );
+    setLoginMessage(message);
+
+    // Sign / Sign Up
   };
 
   return (
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/594f8025-139a-4a35-b58d-4ecf8fdc507c/d3c4e455-f0bf-4003-b7cd-511dda6da82a/IN-en-20240108-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-          alt="back-ground-image"
-        />
+        <img src={BACK_IMG} alt="back-ground-image" />
       </div>
-      <form className="absolute p-12 bg-black w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-80">
+      <form
+        className="absolute p-12 bg-black w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-80"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <h1 className="font-bold text-3xl py-4">
           {isSignInFrom === true ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInFrom && (
           <input
+            //ref={name}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full bg-gray-700"
           />
         )}
         <input
+          ref={email}
           type="text"
           placeholder="Email Address"
           className="p-4 my-4 w-full bg-gray-700"
         />
         <input
-          type="passpord"
+          ref={password}
+          type="password"
           placeholder="Password"
           className="p-4 my-4 w-full bg-gray-700"
         />
-        <button className="p-4 my-6 bg-red-700 w-full rounded-lg">
+        <p className="py-2 text-red-500 font-bold text-lg">{loginMessage}</p>
+        <button
+          className="p-4 my-6 bg-red-700 w-full rounded-lg"
+          onClick={handleButtonClick}
+        >
           {isSignInFrom === true ? "Sign In" : "Sign Up"}
         </button>
         <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>

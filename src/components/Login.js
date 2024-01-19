@@ -104,7 +104,7 @@ const Login = () => {
         </button>
         <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
           {isSignInFrom === true
-            ? "New To Netflix? Sign-Up Now"
+            ? "New to Netflix? Sign-Up Now"
             : "Already registered? Sign-In Now"}
         </p>
       </form>

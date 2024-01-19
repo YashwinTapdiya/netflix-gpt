@@ -14,17 +14,16 @@ const Login = () => {
 
   const email = useRef(null);
   const password = useRef(null);
-  //const name = useRef(null);
 
   const handleButtonClick = () => {
     const message = checkValidateData(
       email.current.value,
-      password.current.value,
-      //name.current.value
+      password.current.value
     );
     setLoginMessage(message);
-
-    // Sign / Sign Up
+    if(message) return;
+    // Sign / Sign Up Logic
+    
   };
 
   return (

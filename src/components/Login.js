@@ -8,16 +8,12 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInFrom, setIsSignInFrom] = useState(false);
-
   const [loginMessage, setLoginMessage] = useState(null);
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const toggleSignInForm = () => {
@@ -29,15 +25,15 @@ const Login = () => {
   const name = useRef(null);
 
   const handleButtonClick = () => {
+    const nameValue = name.current? name.current.value : null;
     const message = checkValidateData(
       email.current.value,
       password.current.value,
-      name.current.value
+      nameValue
     );
     setLoginMessage(message);
     if (message) return;
     // Sign / Sign Up Logic
-
     if (!isSignInFrom) {
       //Sign Up Logic
       createUserWithEmailAndPassword(
@@ -55,7 +51,6 @@ const Login = () => {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
@@ -76,7 +71,6 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/");
         })
         .catch((error) => {
           const errorCode = error.code;

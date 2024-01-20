@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
-import { AVTAR_URL, NETFLIX_LOGO } from "../utils/constants";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { toggleGptSearchView } from "../utils/gptSlice";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const user = useSelector((store) => store.user);
+  const isLoginPage = location.pathname === "/login";
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {})
@@ -33,20 +35,32 @@ const Header = () => {
       } else {
         // User is signed out
         dispatch(removeUser());
-        navigate("/");
+        navigate("/login");
       }
     });
     return () => unsubscribe();
   }, []);
 
-  const handleGptSearchClick = ()=>{
+  const handleGptSearchClick = () => {
     //Toggle GPT Search buttton
     dispatch(toggleGptSearchView());
-  }
+  };
 
   return (
     <div className="w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
       <img className="w-44" src="./ngpt-red-300x71-01.png" alt="logo" />
+      {isLoginPage && (
+        <div className="px-4">
+          <Link to="/">
+            <button
+              className="bg-red-600 text-white px-2 md:px-4 py-2 text-sm md:text-lg rounded-md"
+              type="button"
+            >
+              Started Page
+            </button>
+          </Link>
+        </div>
+      )}
       {user && (
         <div className="flex p-2">
           <button
@@ -55,7 +69,7 @@ const Header = () => {
           >
             GPT Search
           </button>
-          <img className="w-12 h-12" src="./avatar-red.jpeg" />
+          <img className="w-12 h-12" src="./avatar-red.jpeg" alt="avatar" />
           <button className="font-bold text-white" onClick={handleSignOut}>
             Sign-Out
           </button>

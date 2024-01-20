@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
-  const [isSignInFrom, setIsSignInFrom] = useState(false);
+  const [isSignInFrom, setIsSignInFrom] = useState(true);
   const [loginMessage, setLoginMessage] = useState(null);
   const dispatch = useDispatch();
 

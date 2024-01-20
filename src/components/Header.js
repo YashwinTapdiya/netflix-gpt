@@ -6,12 +6,15 @@ import { addUser, removeUser } from "../utils/userSlice";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { Link } from "react-router-dom";
+import { SUPPORTED_LANGUAGES } from "../utils/constants";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector((store) => store.user);
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   const isLoginPage = location.pathname === "/login";
   const handleSignOut = () => {
     signOut(auth)
@@ -45,6 +48,9 @@ const Header = () => {
     //Toggle GPT Search buttton
     dispatch(toggleGptSearchView());
   };
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
 
   return (
     <div className="w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
@@ -61,16 +67,32 @@ const Header = () => {
           </Link>
         </div>
       )}
+
       {user && (
         <div className="flex p-2">
+          {showGptSearch && (
+            <select
+              className="p-2 m-2 bg-gray-900 text-white"
+              onChange={handleLanguageChange}
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option value={lang.identifier} key={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
           <button
-            className="py-2 px-4 mx-6 bg-purple-500 text-white rounded-lg"
+            className="p-2 m-2 bg-purple-500 text-white rounded-lg"
             onClick={handleGptSearchClick}
           >
-            GPT Search
+            {!showGptSearch ? "GPT Search" : "HomePage"}
           </button>
-          <img className="w-12 h-12" src="./avatar-red.jpeg" alt="avatar" />
-          <button className="font-bold text-white" onClick={handleSignOut}>
+          <img className="w-10 h-10" src="./avatar-red.jpeg" alt="avatar" />
+          <button
+            className="font-bold text-white p-2 m-2"
+            onClick={handleSignOut}
+          >
             Sign-Out
           </button>
         </div>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { toggleGptSearchView } from "../utils/gptSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -38,15 +39,24 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleGptSearchClick = ()=>{
+    //Toggle GPT Search buttton
+    dispatch(toggleGptSearchView());
+  }
+
   return (
     <div className="w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
       <img className="w-44" src="./ngpt-red-300x71-01.png" alt="logo" />
       {user && (
         <div className="flex p-2">
           <button
-            className="font-bold text-xl text-red-500"
-            onClick={handleSignOut}
+            className="py-2 px-4 mx-6 bg-purple-500 text-white rounded-lg"
+            onClick={handleGptSearchClick}
           >
+            GPT Search
+          </button>
+          <img className="w-12 h-12" src="./avatar-red.jpeg" />
+          <button className="font-bold text-white" onClick={handleSignOut}>
             Sign-Out
           </button>
         </div>

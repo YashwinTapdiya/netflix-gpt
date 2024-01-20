@@ -3,13 +3,25 @@ import lang from "../utils/languageConstants";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 import openai from "../utils/openai";
+import { API_OPTIONS } from "../utils/constants";
 
 const GptSearchBar = () => {
   const language = useSelector((store) => store.config.lang);
   const searchText = useRef(null);
 
+  const searchMovieTMDB = async (movie) => {
+    const data = await fetch(
+      "https://api.themoviedb.org/3/search/movie?query=" +
+        movie +
+        "&include_adult=false&language=en-US&page=1",
+      API_OPTIONS
+    );
+    const json = await data.json();
+    return json.results;
+  };
+
   const handleGptSearchClick = async () => {
-    console.log(searchText.current.value)
+    console.log(searchText.current.value);
     const gptQuery =
       "Act as a Movie Recommendation system and suggest some movies for the query : " +
       searchText.current.value +
@@ -18,7 +30,18 @@ const GptSearchBar = () => {
       messages: [{ role: "user", content: gptQuery }],
       model: "gpt-3.5-turbo",
     });
-    console.log(gptResults.choices);
+    if (!gptResults.choices) {
+      // TODO: Handle error here
+    }
+    console.log(gptResults.choices?.[0]?.message?.content);
+    //this will Contains 5 five movies result
+    const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
+    //split() -> seperate the each movie with comma(,) -> Make the array of movies
+
+    // For each movie I will search TMDB API
+    const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
+    const tmdbResults = await Promise.all(promiseArray);
+    console.log(tmdbResults);
   };
 
   return (

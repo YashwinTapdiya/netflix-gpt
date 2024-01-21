@@ -84,13 +84,13 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img src={BACK_IMG} alt="back-ground-image" />
+        <img src={BACK_IMG} alt="back-ground-image" className="h-screen md:h-full object-cover"/>
       </div>
       <form
-        className="absolute p-12 bg-black w-3/12 my-36 mx-auto right-0 left-0 text-white bg-opacity-80"
+        className="absolute text-white px-12 py-4 md:py-8 bg-black my-36 mx-auto right-0 left-0 w-[85%] md:w-3/12 text-center bg-opacity-80"
         onSubmit={(e) => e.preventDefault()}
       >
-        <h1 className="font-bold text-3xl py-4">
+        <h1 className="font-bold text-3xl text-[26px] md:text-3xl py-3 md:py-4 text-start">
           {isSignInFrom === true ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInFrom && (
@@ -98,29 +98,29 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="p-4 my-4 w-full bg-gray-700"
+            className="p-3 md:p-4 px-4 my-4 w-full bg-gray-700"
           />
         )}
         <input
           ref={email}
           type="text"
           placeholder="Email Address"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-3 md:p-4 my-4 w-full bg-gray-700"
         />
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-3 md:p-4 my-4 w-full bg-gray-700"
         />
         <p className="py-2 text-red-500 font-bold text-lg">{loginMessage}</p>
         <button
-          className="p-4 my-6 bg-red-700 w-full rounded-lg"
+          className="p-3 md:p-4 my-3 md:my-6 bg-red-700 w-full rounded-lg"
           onClick={handleButtonClick}
         >
           {isSignInFrom === true ? "Sign In" : "Sign Up"}
         </button>
-        <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
+        <p className="py-2 md:py-4 text-start cursor-pointer" onClick={toggleSignInForm}>
           {isSignInFrom === true
             ? "New to Netflix? Sign-Up Now"
             : "Already registered? Sign-In Now"}

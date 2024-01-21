@@ -53,8 +53,12 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-44" src="./ngpt-red-300x71-01.png" alt="logo" />
+    <div className="absolute px-8 w-full py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row items-center justify-between">
+      <img
+        className="w-44 mx-auto md:mx-0"
+        src="./ngpt-red-300x71-01.png"
+        alt="logo"
+      />
       {isLoginPage && (
         <div className="px-4">
           <Link to="/">
@@ -83,7 +87,7 @@ const Header = () => {
             </select>
           )}
           <button
-            className="p-2 m-2 bg-purple-500 text-white rounded-lg"
+            className="py-2 px-2 text-sm md:px-4 mx-4 my-2 bg-purple-800 text-white rounded-md md:rounded-lg"
             onClick={handleGptSearchClick}
           >
             {!showGptSearch ? "GPT Search" : "HomePage"}

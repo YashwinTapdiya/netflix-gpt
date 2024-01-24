@@ -4,7 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { toggleGptSearchView } from "../utils/gptSlice";
+import {
+  backToHomeOnSignOut,
+  removeMovieResult,
+  toggleGptSearchView,
+} from "../utils/gptSlice";
 import { Link } from "react-router-dom";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 import { changeLanguage } from "../utils/configSlice";
@@ -18,7 +22,10 @@ const Header = () => {
   const isLoginPage = location.pathname === "/login";
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {})
+      .then(() => {
+        dispatch(removeMovieResult());
+        dispatch(backToHomeOnSignOut());
+      })
       .catch((error) => {
         navigate("/error");
       });
@@ -47,6 +54,7 @@ const Header = () => {
   const handleGptSearchClick = () => {
     //Toggle GPT Search buttton
     dispatch(toggleGptSearchView());
+    dispatch(removeMovieResult());
   };
   const handleLanguageChange = (e) => {
     dispatch(changeLanguage(e.target.value));
@@ -87,12 +95,16 @@ const Header = () => {
             </select>
           )}
           <button
-            className="py-2 px-2 text-sm md:px-4 mx-4 my-2 bg-purple-800 text-white rounded-md md:rounded-lg"
+            className="font-semibold px-2 items-center py-1 mx-8 text-md text-start w-fit m-auto text-white bg-black bg-opacity-50 border-2 hover:border-white hover:bg-red-800"
             onClick={handleGptSearchClick}
           >
             {!showGptSearch ? "GPT Search" : "HomePage"}
           </button>
-          <img className="w-10 h-10" src="./avatar-red.jpeg" alt="avatar" />
+          <img
+            className="w-10 h-10 my-2 -mx-3 rounded-lg"
+            src="./avatar-red.jpeg"
+            alt="avatar"
+          />
           <button
             className="font-bold text-white p-2 m-2"
             onClick={handleSignOut}

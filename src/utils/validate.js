@@ -5,8 +5,8 @@ const checkValidateData = (email, password) => {
   const passpordValidation =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password);
 
-//   const nameValidation =
-//     /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(name);
+  //   const nameValidation =
+  //     /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(name);
 
   if (!emailValidation) return "Email ID is not valid";
   if (!passpordValidation) return "Password is not valid";

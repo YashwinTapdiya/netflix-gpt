@@ -1,11 +1,12 @@
 import React from "react";
 import { IMG_CDN_URL } from "../utils/constants";
 
-const MovieCard = ({ posterPath }) => {
+const MovieCard = ({ posterPath, title }) => {
   if (!posterPath) return null;
   return (
-    <div className="w-40 md:w-40 pr-4 m-auto cursor-pointer">
+    <div className="sm:w-44 w-36 mr-3 cursor-pointer">
       <img alt="movie-card" src={IMG_CDN_URL + posterPath} />
+      <div className="text-white font-bold relative  ">{title}</div>
     </div>
   );
 };

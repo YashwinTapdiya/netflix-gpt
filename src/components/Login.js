@@ -25,7 +25,7 @@ const Login = () => {
   const name = useRef(null);
 
   const handleButtonClick = () => {
-    const nameValue = name.current? name.current.value : null;
+    const nameValue = name.current ? name.current.value : null;
     const message = checkValidateData(
       email.current.value,
       password.current.value,
@@ -84,7 +84,11 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img src={BACK_IMG} alt="back-ground-image" className="h-screen md:h-full object-cover"/>
+        <img
+          src={BACK_IMG}
+          alt="back-ground-image"
+          className="h-screen md:h-full object-cover"
+        />
       </div>
       <form
         className="absolute text-white px-12 py-4 md:py-8 bg-black my-36 mx-auto right-0 left-0 w-[85%] md:w-3/12 text-center bg-opacity-80"
@@ -120,7 +124,10 @@ const Login = () => {
         >
           {isSignInFrom === true ? "Sign In" : "Sign Up"}
         </button>
-        <p className="py-2 md:py-4 text-start cursor-pointer" onClick={toggleSignInForm}>
+        <p
+          className="py-2 md:py-4 text-start cursor-pointer"
+          onClick={toggleSignInForm}
+        >
           {isSignInFrom === true
             ? "New to Netflix? Sign-Up Now"
             : "Already registered? Sign-In Now"}

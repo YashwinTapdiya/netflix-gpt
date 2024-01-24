@@ -8,6 +8,9 @@ const gptSlice = createSlice({
     movieResults: null,
   },
   reducers: {
+    backToHomeOnSignOut: (state) => {
+      state.showGptSearch = false;
+    },
     toggleGptSearchView: (state) => {
       state.showGptSearch = !state.showGptSearch;
     },
@@ -16,9 +19,18 @@ const gptSlice = createSlice({
       state.movieNames = movieNames;
       state.movieResults = movieResults;
     },
+    removeMovieResult: (state) => {
+      state.movieNames = null;
+      state.movieResults = null;
+    },
   },
 });
 
-export const { toggleGptSearchView, addGptMovieResult } = gptSlice.actions;
+export const {
+  toggleGptSearchView,
+  addGptMovieResult,
+  removeMovieResult,
+  backToHomeOnSignOut,
+} = gptSlice.actions;
 
 export default gptSlice.reducer;

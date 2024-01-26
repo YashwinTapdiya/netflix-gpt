@@ -3,7 +3,7 @@
 Explore a world of movies with Netflix-GPT, a ReactJS app powered by OpenAI's GPT-3.5 for dynamic movie recommendations.
 
 ## 🔗 Live link
-**[https://netflixgpt-8f31c.firebaseapp.com](https://netflixgpt-8f31c.firebaseapp.com)**
+**[https://netflix-gpt-alpha.vercel.app/](https://netflix-gpt-alpha.vercel.app/)**
 
 
 ## 📓Features 
@@ -30,7 +30,8 @@ Explore a world of movies with Netflix-GPT, a ReactJS app powered by OpenAI's GP
 - Redux Toolkit for state management.
 - React Router Dom for routing.
 - Tailwind CSS for styling.
-- Firebase for secure user authentication and hosting platform.
+- Firebase for secure user authentication.
+- Vercel for hosting platform.
 - OpenAI GPT-3 for getting Movie Suggestion
 - TMDB API's for getting Movie details.
 
